@@ -1,0 +1,101 @@
+<ui:composition template="/pages/mainTemplate.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="title">
+        <h:outputText value="#{patienBean.selectedPatien.lastName}"/>
+    </ui:define>
+    <ui:define name="subtitle">
+        <h:outputText value="#{patienBean.selectedPatien.firstName}"/>
+    </ui:define>
+
+    <ui:define name="content">
+
+
+        <!--VISIT TABLE-->
+        <p:dataTable id="visits" var="visit" value="#{patienBean.selectedPatien.visits}" selectionMode="single"
+                     selection="#{patienBean.selectedVisit}" rowKey="#{visit.id}">
+
+            <p:column headerText="Id" sortBy="#{visit.id}" filterBy="#{visit.id}"
+                      filterMatchMode="contains">
+                <h:outputText value="#{visit.id}"/>
+            </p:column>
+            <p:column headerText="date" sortBy="#{visit.date}" filterBy="#{visit.date}" filterMatchMode="contains">
+                <h:outputText value="#{visit.date}">
+                    <f:convertDateTime pattern="dd-MM-yyyy   HH:mm"/>
+                </h:outputText>
+            </p:column>
+            <p:column headerText="amount" sortBy="#{visit.amount}" filterBy="#{visit.amount}"
+                      filterMatchMode="contains">
+                <h:outputText value="#{visit.amount}"/>
+            </p:column>
+            <p:column headerText="cause" sortBy="#{visit.cause}" filterBy="#{visit.cause}" filterMatchMode="contains">
+                <h:outputText value="#{visit.cause.description}"/>
+            </p:column>
+            <p:column style="width: 90px">
+                <f:facet name="header">
+                    <p:commandLink action="#{patienBean.newVisit}"
+                                   oncomplete="PF('addVisitDialog').show()"
+                                   title="Προσθήκη Επίσκεψης">
+                        <span class="fa fa-plus"></span>
+                    </p:commandLink>
+                </f:facet>
+
+                <p:commandLink update=":addVisitForm"
+                               oncomplete="PF('addVisitDialog').show()">
+                    <span class="fa fa-pencil"></span>
+                    <f:setPropertyActionListener value="#{visit}" target="#{patienBean.selectedVisit}"/>
+                </p:commandLink>
+
+                <p:commandLink action="#{patienBean.deleteVisit}"
+                               update=":mainForm">
+                    <span class="fa fa-trash"></span>
+                    <f:setPropertyActionListener value="#{visit}" target="#{patienBean.selectedVisit}"/>
+                    <p:confirm header="Επικύρωση διαγραφής" message="Σίγουρα να γίνει η διαγραφή" icon="ui-icon-alert"/>
+                </p:commandLink>
+            </p:column>
+        </p:dataTable>
+    </ui:define>
+
+    <ui:define name="dialogs">
+        <p:dialog id="addVisitDialog" header="Προσθήκη επίσκεψης" widgetVar="addVisitDialog" modal="true" width="530"
+                  height="300">
+            <h:form id="addVisitForm">
+                <h:panelGrid columns="2" columnClasses="column" cellpadding="5">
+
+                    <h:outputLabel value="Ημ/νία επίσκεψης"/>
+                    <p:calendar value="#{patienBean.selectedVisit.date}" pattern="dd-MM-yyyy" mask="true">
+                        <f:convertDateTime pattern="dd-MM-yyyy"/>
+                    </p:calendar>
+
+                    <h:outputLabel value="Λόγος επίσκεψης"/>
+                    <p:selectOneMenu value="#{patienBean.selectedVisit.cause}" converter="jsonEntityConverter">
+                        <f:selectItem itemLabel="Επιλογή" itemValue=""/>
+                        <f:selectItems value="#{applicationBean.visitCauses}" var="cause" itemValue="#{cause}"
+                                       itemLabel="#{cause.description}"/>
+                    </p:selectOneMenu>
+
+                    <h:outputLabel value="Ποσό"/>
+                    <p:inputText value="#{patienBean.selectedVisit.amount}" label="text"/>
+                </h:panelGrid>
+
+
+                <p:commandButton value="Αποθήκευση"
+                                 update=":mainForm"
+                                 actionListener="#{patienBean.persistVisit}"
+                                 oncomplete="PF('addVisitDialog').hide()"
+                                 validateClient="true"
+                                 styleClass="ui-priority-primary"
+                />
+                <p:commandButton value="Ακύρωση" oncomplete="PF('addVisitDialog').hide()"
+                                 styleClass="ui-priority-primary"/>
+
+            </h:form>
+        </p:dialog>
+    </ui:define>
+
+
+</ui:composition>

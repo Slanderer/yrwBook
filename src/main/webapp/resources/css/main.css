@@ -1,0 +1,801 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&subset=greek');
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+body {
+    font-family: 'Roboto',Verdana,Arial,sans-serif;
+    font-size: 12pt;
+    font-weight: 300;
+    color: #3d5265;
+}
+
+.loader + div.ui-widget.ui-widget-content.ui-blockui-content {
+    background: none;
+    border: none;
+    box-shadow: none;
+}
+
+div.loginPanel {
+    width: 25em;
+    margin: 10em auto;
+    box-shadow: 0 0 3em #999;
+}
+
+div.loginPanel #loginForm {
+    display: block;
+    padding: 2em;
+}
+
+div.loginPanel #loginForm > .input {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+div.loginPanel #languageForm {
+    display: block;
+    padding: 1em;
+    color: white;
+    background-color: rgba(61, 82, 101, 0.8); /*3d5265*/
+}
+
+div.loginPanel #languageForm a,
+div.loginPanel #languageForm a:visited,
+.layout .layoutLeft .languagePanel a,
+.layout .layoutLeft .languagePanel a:visited {
+    color: white;
+    margin: .2em;
+    text-decoration: none;
+}
+
+div.loginPanel #languageForm a:hover {
+    text-decoration: underline;
+}
+
+div.loginPanel .buttonPanel {
+    padding: 3em 0 0 0;
+}
+
+.form {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 1em;
+}
+
+.form > .column {
+    padding: .5em;
+}
+
+.form > .column:last-child {
+    flex-grow: 1;
+}
+
+.form h1 {
+    font-size: 1.5em;
+    font-weight: 400;
+    margin-top: 0;
+}
+
+.form label {
+    display: block;
+    margin-top: 0.5em;
+    padding: .2em .3em;
+}
+
+#loginForm label {
+    margin-top: 1.5em;
+}
+
+.form label:first-child,
+.form .column label:first-child {
+    margin-top: 0;
+}
+
+.form .input {
+    display: inline-block;
+    min-width: 18em;
+}
+
+.form textarea.input {
+    width: calc(100% - 1.5em);
+    max-width: 37em;
+    height: 5.8em;
+    resize: none;
+}
+
+.buttonPanel {
+    padding: 1em 0;
+    text-align: right;
+}
+
+.buttonPanel > button {
+    vertical-align: bottom;
+}
+
+.buttonPanel > button.previous {
+    float: left;
+}
+
+.sp .ui-button.spButton.ui-state-default,
+.sp .ui-button.spButton.ui-state-hover,
+.sp .ui-button.spButton.ui-state-active,
+.sp .ui-button.spButton.ui-state-active:hover {
+    border-width: 0 0 2px 0;
+    padding: .5em;
+    min-width: 10em;
+    border-radius: .1em;
+    color: #fff;
+    transition: opacity .3s;
+}
+
+.sp .ui-button.spButton.ui-state-hover,
+.sp .ui-button.spButton.ui-state-active {
+    opacity: .8;
+    transition: opacity .3s;
+}
+
+.sp .ui-button.spButton.ui-state-active,
+.sp .ui-button.spButton.ui-state-active:hover {
+    border-width: 0;
+    margin-top: 2px;
+}
+
+.sp .ui-button.spButton.style1.ui-state-default,
+.sp .ui-button.spButton.style1.ui-state-hover,
+.sp .ui-button.spButton.style1.ui-state-active,
+.sp .ui-button.spButton.style1.ui-state-active:hover {
+    background: #ff791d;
+    border-color: #a24e14;
+}
+
+.sp .ui-button.spButton.style2.ui-state-default,
+.sp .ui-button.spButton.style2.ui-state-hover,
+.sp .ui-button.spButton.style2.ui-state-active,
+.sp .ui-button.spButton.style2.ui-state-active:hover {
+    background: linear-gradient(to right, #96c14e 0%, #42ad49 100%);
+    border-color: #509e2f;
+}
+
+.layout {
+    display: flex;
+    height: 100%;
+}
+
+.layout > .layoutLeft {
+    width: 20rem;
+    min-width: 20rem;
+    /*background: linear-gradient(to bottom, #002909 0%, #5DA71E 48%, #5DA71E 52%, #002909 100%);*/
+    /*background: #53981d;*/
+    background: #509E2E;
+    display: flex;
+    flex-direction: column;
+    transition: .3s;
+}
+
+.layout > .layoutRight {
+    flex-grow: 1;
+    height: 100%;
+    overflow: auto;
+}
+
+.layout > .layoutRight > .mainPanel {
+    padding: 1rem;
+    min-height: calc(100% - 5rem);
+    box-sizing: border-box;
+}
+
+.layout > .layoutRight > .mainPanel > .header {
+    display: flex;
+    align-items: baseline;
+    padding: 1em 1em 1.5em 1em;
+}
+
+.layout > .layoutRight > .mainPanel > .header > .title {
+    flex-grow: 0;
+    font-size: 1.8em;
+    font-weight: 400;
+    margin: 0 .5em 0 0;
+}
+
+.layout > .layoutRight > .mainPanel > .header > .title > .subtitle {
+    font-size: .7em;
+    margin-left: 1rem;
+    color: rgba(61, 82, 101, .7);
+}
+
+.layout > .layoutRight > .mainPanel > .header > .actions {
+    flex-grow: 1;
+}
+
+.layout > .layoutRight > .mainPanel > .header > .titleLoader {
+    flex-grow: 0;
+    display: none;
+}
+
+.layout > .layoutRight > .mainPanel .actions > a {
+    font-size: 2em;
+    color: #3d5265;
+    padding: 0 .2em;
+}
+
+.layout > .layoutRight > .mainPanel .actions > a:hover {
+    color: #1f2e3f;
+}
+
+.layout > .layoutRight > .mainPanel .actions > a:active {
+    opacity: .3;
+    transition: 0s;
+}
+
+.layout > .layoutLeft .logoWrapper,
+.layout > .layoutRight > .topPanel {
+    height: 5rem;
+    min-height: 5rem;
+    background: #3d5265;
+}
+
+.layout > .layoutLeft .logo {
+    height: 100%;
+    background: url("#{resource['spmodule:images/logo.png']}") no-repeat center center rgba(0, 0, 0, .5);
+    background-size: 80%;
+    flex-grow: 0;
+    display: block
+}
+
+.layout > .layoutLeft #leftMenuForm {
+    flex-grow: 1;
+}
+
+.layout > .layoutRight > .topPanel {
+    display: flex;
+}
+
+.layout .topPanel > .steps {
+    flex-grow: 1;
+}
+
+.layout .topPanel > .steps .ui-steps-item {
+    border: none;
+    opacity: 1;
+    height: 5rem;
+    line-height: 5rem;
+}
+
+.layout .topPanel > .steps .ui-menuitem-link {
+    line-height: normal;
+    color: rgba(255, 255, 255, .8);
+}
+
+.layout .topPanel > .steps .ui-menuitem-link .ui-steps-title {
+    white-space: normal;
+}
+
+.layout .topPanel > .steps .ui-steps-item.ui-state-default.ui-state-disabled {
+    background: none;
+}
+
+.layout .topPanel > .steps .ui-steps-item.ui-state-default,
+.layout .topPanel > .steps .ui-steps-item.ui-state-highlight {
+    background: rgba(0, 0, 0, .5);
+}
+
+.layout .topPanel > .steps .ui-steps-item.ui-state-highlight {
+    border-bottom-right-radius: 3em;
+}
+
+/*.layout .topPanel > .steps .ui-steps-item.ui-state-highlight + .ui-steps-item:after {
+    content: " ";
+    display: inline-block;
+    width: 0;
+    height: 0;
+    line-height: 5rem;
+    position: relative;
+    top: -4rem;
+    border-style: solid;
+    border-width: 2.5rem .7rem 2.5rem .7rem;
+    border-color: transparent transparent transparent rgba(0, 0, 0, .5);
+}*/
+
+.layout .topPanel > .steps .ui-menuitem-link {
+    padding: .5rem 1em 0 1em;
+}
+
+.layout .topPanel > .topMenu {
+    flex-grow: 0;
+    padding: 1.3rem 0;
+    font-size: 2rem;
+    white-space: nowrap;
+}
+
+.layout .topPanel > .topMenu .button,
+.layout .topPanel > .topMenu a,
+.layout .topPanel > .topMenu a:visited {
+    color: rgba(255, 255, 255, .8);
+    margin: 0 .5em;
+    text-decoration: none;
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+}
+
+.layout .topPanel > .topMenu .button:hover,
+.layout .topPanel > .topMenu a:hover,
+.layout .topPanel > .topMenu a:active {
+    color: #fff;
+    text-shadow: 0em 0em .1em #fff;
+}
+
+.layout .topPanel > .topMenu .indicator {
+    display: block;
+    font-size: .35em;
+    font-weight: 500;
+    position: absolute;
+    right: -.5em;
+    top: .1em;
+    min-width: 1em;
+    color: #fff;
+    padding: .2em;
+    text-align: center;
+    border-radius: 2em;
+}
+
+.layout .topPanel > .topMenu .indicator.low {
+    background: #ff791d;;
+}
+
+.layout .topPanel > .topMenu .indicator.high {
+    background: #f20000;
+}
+
+.layout .topPanel > .topMenu .ui-overlaypanel {
+    font-size: .9rem;
+}
+
+.layout .topPanel > .topMenu .ui-overlaypanel.ui-overlay-hidden {
+    right: 0;
+}
+
+.layout .topPanel > .topMenu .ui-overlaypanel.ui-overlay-hidden .notificationRow {
+    transition: 0s;
+}
+
+.layout .topPanel > .topMenu .ui-overlaypanel-content {
+    padding: .1em;
+}
+
+.layout .topPanel > .topMenu .ui-overlaypanel .notificationRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1em 0em 1em .5em;
+    margin: .3em;
+    max-width: 40em;
+    background: rgba(255, 255, 255, .05);
+    transition: 0s;
+}
+
+.layout .topPanel > .topMenu .ui-overlaypanel .notificationRow label {
+    white-space: normal;
+    margin-right: .5em;
+}
+
+.layout .topPanel > .topMenu .ui-overlaypanel .notificationRow:hover {
+    background: rgba(255, 255, 255, .1);
+    transition: 0s;
+}
+
+.layout .topPanel > .topMenu .ui-overlaypanel .notificationRow .fa {
+    font-size: 1.5em;
+    vertical-align: middle;
+}
+
+.layout .topPanel > .topMenu .ui-overlaypanel .notificationMore {
+    display: block;
+    padding: .5em;
+    font-weight: 400;
+    text-align: right;
+}
+
+.layout .user {
+    padding: .2rem .2rem .2rem .6rem;
+    white-space: nowrap;
+}
+
+.layout .user > .userIcon {
+    font-size: 3rem;
+    color: #ddd;
+}
+
+.layout .user > .userDetails {
+    color: rgba(255, 255, 255, .8);
+    font-weight: 500;
+    font-size: 1.2em;
+}
+
+.layout .user > .userIcon,
+.layout .user > .userDetails {
+    display: inline-block;
+    padding: .5rem .2rem;
+    vertical-align: baseline;
+}
+
+.layout .user > .userDetails > .email {
+    font-size: .8em;
+    font-weight: 400;
+}
+
+.layout .leftMenu > .menuItem {
+    display: block;
+    line-height: 4rem;
+    font-weight: 400;
+    color: rgba(255, 255, 255, .8);
+    text-decoration: none;
+    background: rgba(0, 0, 0, .15);
+    margin: .25em 0 0em .3em;
+    padding-left: .6em;
+    border-radius: 2em 0 0 2em;
+    white-space: nowrap;
+}
+
+.layout .leftMenu > .menuItem:hover,
+.layout .leftMenu > .menuItem:active {
+    background: rgba(0, 0, 0, .3);
+}
+
+.layout .leftMenu > .menuItem .fa {
+    font-size: 2rem;
+    padding: .2em;
+    width: 1em;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.layout .layoutLeft .languagePanel {
+    text-align: center;
+    color: rgba(255, 255, 255, .8);
+    padding: 1em;
+}
+
+.layout .layoutLeft .languagePanel > .fa-language {
+    font-size: 1.5em;
+    margin-right: .5em;
+}
+
+.dashboard {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.dashboard > .dashboardItem {
+    flex-grow: 1;
+    width: 40%;
+    min-width: 22em;
+    margin: .5em;
+    color: #fff;
+    padding: 1rem;
+}
+
+.dashboard > .dashboardItem .header {
+    font-size: .9em;
+    display: flex;
+    margin-bottom: 1em;
+}
+
+.dashboard > .dashboardItem a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.dashboard > .dashboardItem a.headerIcon {
+    font-size: 1em;
+    font-weight: 500;
+    flex-grow: 0;
+    min-width: 10em;
+    margin-right: 1rem;
+    text-align: center;
+    padding: 1rem;
+}
+
+.dashboard > .dashboardItem a.headerIcon:hover {
+    background: rgba(0, 0, 0, .1);
+}
+
+.dashboard > .dashboardItem .headerIcon .fa {
+    display: block;
+    font-size: 4em;
+    margin-bottom: .1em;
+}
+
+.dashboard > .dashboardItem .headerTitle {
+    font-size: 4.5em;
+    flex-grow: 1;
+    text-align: center;
+    width: 100%;
+    border-left: .15rem solid rgba(255, 255, 255, .6);
+    padding: .3em;
+}
+
+.dashboard > .dashboardItem .ui-datatable th,
+.dashboard > .dashboardItem .ui-datatable tbody,
+.dashboard > .dashboardItem .ui-datatable td,
+.dashboard > .dashboardItem .ui-datatable tr {
+    background: none;
+    border: none;
+    color: #fff;
+}
+
+.dashboard > .dashboardItem .ui-progressbar,
+.uploadPanel .ui-fileupload-content .ui-progressbar {
+    background: rgba(0, 0, 0, .2);
+    border: none;
+    border-radius: 1em;
+    height: .2em;
+    min-width: 5em;
+}
+
+.dashboard > .dashboardItem .ui-progressbar .ui-progressbar-value,
+.uploadPanel .ui-fileupload-content .ui-progressbar .ui-progressbar-value {
+    border: none;
+    border-radius: 1em;
+    position: static;
+    margin: 0;
+    background: rgba(255, 255, 255, .8);
+}
+
+.dashboard > .dashboardItem.pendingActions {
+    background: #ff791d;
+}
+
+.dashboard > .dashboardItem.active {
+    background: #1378BD;
+}
+
+.dashboard > .dashboardItem.completed {
+    background: #5da51b;
+}
+
+.dashboard > .dashboardItem.failed {
+    background: #f20000;
+}
+
+.chooseFilePanel .fileDetails,
+.chooseFilePanel .description,
+.uploadPanel.ui-fileupload {
+    box-sizing: border-box;
+    display: block;
+    margin: 1em auto;
+}
+
+.uploadPanel.ui-fileupload {
+    max-width: 50em;
+    background: #C8DADF;
+    padding: .5em;
+}
+
+.chooseFilePanel .fileDetails,
+.chooseFilePanel .description {
+    width: 100%;
+    max-width: 30em;
+}
+
+.chooseFilePanel .fileDetails {
+    margin-top: 2em;
+}
+
+.chooseFilePanel .fileDetails .filename {
+    font-weight: 500;
+}
+
+.uploadPanel .ui-fileupload-buttonbar {
+    background: none;
+    border: none;
+    text-align: center;
+    position: relative;
+    height: 0;
+    padding: 0;
+    top: 12em;
+    z-index: 10;
+}
+
+.uploadPanel .ui-fileupload-buttonbar .ui-button {
+    color: #3d5265;
+    font-size: 1.3em;
+    font-weight: 500;
+    background: none;
+    border: none;
+}
+.uploadPanel .ui-fileupload-buttonbar .ui-button:hover,
+.uploadPanel .ui-fileupload-buttonbar .ui-button:active {
+    font-weight: 500;
+    color: #1f2e3f;
+    background: none;
+    border: none;
+}
+
+.uploadPanel .ui-fileupload-buttonbar .ui-button .ui-icon {
+    display: none;
+}
+
+.uploadPanel .ui-fileupload-content {
+    height: 20em;
+    background: none;
+    border: .15em dashed rgba(61, 82, 101, .5);
+    position: relative;
+}
+
+.uploadPanel .ui-fileupload-content:after {
+    font: normal normal normal 6em FontAwesome;
+    text-rendering: auto;
+    content: "\f093";
+    position: absolute;
+    top: 1em;
+    width: 2em;
+    left: calc(50% - 1em);
+    text-align: center;
+    opacity: .3;
+}
+
+.uploadPanel .ui-fileupload-files td {
+    padding: .5em .2em;
+}
+
+.uploadPanel .ui-fileupload-files td:nth-child(3) {
+    font-weight: 400;
+    padding: 0 1em;
+    white-space: nowrap;
+}
+
+.uploadPanel .ui-fileupload-files td.ui-fileupload-progress {
+    width: 100%;
+}
+
+
+.uploadPanel .ui-fileupload-content .ui-progressbar {
+    height: .5em;
+    width: 100%;
+}
+
+.uploadPanel .ui-button.ui-fileupload-cancel,
+.uploadPanel .ui-button.ui-fileupload-cancel:active {
+    background: none;
+}
+
+.ui-datatable-header .globalSearch {
+    font-size: 1rem;
+    display: block;
+    text-align: left;
+}
+
+.workflowList .ui-datalist-content {
+    border: none;
+}
+
+.workflowList .ui-datalist-data {
+    padding: 0;
+}
+
+.workflowItem {
+    display: block;
+    margin: 1em .5em;
+    padding: 1em;
+    color: #fff;
+}
+
+.workflowItem.RUNNING {
+    background: #1378BD;
+}
+
+.workflowItem.PENDING {
+    background: #ff791d;
+}
+
+div.spacer {
+    margin: 2em;
+}
+
+th.buttonColumn,
+td.buttonColumn {
+    width: 1em;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.alignCenter {
+    text-align: center;
+}
+
+.fa {
+    min-width: 1em;
+    text-align: center;
+}
+
+.ui-dialog.small {
+    min-width: 10em;
+    min-height: 5em;
+}
+
+@media (max-width: 1005px) {
+
+    .layout .topPanel > .steps .ui-steps-item {
+        font-size: 1.5vw;
+        padding: .5em 0;
+    }
+
+    .layout .topPanel > .steps .ui-menuitem-link {
+        padding: 0 .2em;
+    }
+
+    .layout .topPanel > .steps .ui-menuitem-link .ui-steps-title {
+        width: 90%;
+        margin: auto;
+    }
+}
+
+@media (max-width: 800px) {
+
+    body {
+        min-width: 640px;
+    }
+
+    .layout > .layoutLeft {
+        width: 20%;
+        min-width: 25%;
+        transition: .3s;
+    }
+
+    .layout .user > .userIcon,
+    .layout .user {
+        padding: .2rem 0 0;
+        display: block;
+    }
+
+    .layout .user {
+        font-size: 2.2vw;
+        white-space: normal;
+        text-align: center;
+    }
+
+    .layout .user > .userDetails {
+        padding-top: 0;
+    }
+
+    .layout .user > .userDetails .email {
+        display: none;
+    }
+
+    .layout .leftMenu > .menuItem {
+        font-size: 2.5vw;
+        padding-right: .6em;
+        white-space: normal;
+        text-align: center;
+        line-height: 1em;
+        padding-bottom: .5em;
+    }
+
+    .layout .leftMenu > .menuItem .fa {
+        display: block;
+        width: 1em;
+        margin: auto;
+        padding-bottom: 0;
+    }
+
+    .layout .topPanel > .steps .ui-steps-item {
+        font-size: .8em;
+    }
+
+    .layout .topPanel > .steps .ui-steps-item,
+    .layout .topPanel > .steps .ui-menuitem-link {
+        padding: 1em .5em .5em;
+    }
+
+    .layout .topPanel > .steps .ui-menuitem-link .ui-steps-title {
+        display: none;
+    }
+
+    .layout .topPanel > .steps .ui-steps-item.ui-state-highlight {
+        border-bottom-right-radius: 10em;
+    }
+}

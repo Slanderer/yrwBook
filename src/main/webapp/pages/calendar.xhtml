@@ -1,0 +1,104 @@
+<ui:composition template="/pages/mainTemplate.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="content">
+        <p:schedule id="scheduleLocale" value="#{vm.eventModel}" widgetVar="myschedule" locale="el" timeZone="GMT+2">
+
+            <p:ajax event="dateSelect" listener="#{vm.onDateSelect}"
+
+                    oncomplete="PF('eventDialog').show();"/>
+            <p:ajax event="eventSelect" listener="#{vm.onEventSelect}"
+
+                    oncomplete="PF('eventDialog').show();"/>
+            <p:ajax event="eventMove" listener="#{vm.onEventMove}"/>
+            <p:ajax event="eventResize" listener="#{vm.onEventResize}"/>
+
+        </p:schedule>
+
+    </ui:define>
+
+    <!--<p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip">-->
+        <!--<h:panelGrid id="eventDetails" columns="2">-->
+            <!--&lt;!&ndash;            <p:outputLabel for="title" value="Titles:" />-->
+                        <!--<p:inputText id="title" value="#{vm.event.patien.lastName}" />&ndash;&gt;-->
+
+            <!--&lt;!&ndash;        <p:outputLabel for="from" value="From:" />&ndash;&gt;-->
+            <!--&lt;!&ndash;            <p:calendar id="from" value="#{vm.event.date}" timeZone="GMT+2" pattern="dd/MM/yyyy HH:mm"/>&ndash;&gt;-->
+
+            <!--&lt;!&ndash;            <p:outputLabel for="to" value="To:" -->
+                        <!--<p:calendar id="to" value="#{vm.event.endDate}" timeZone="GMT+2" pattern="dd/MM/yyyy HH:mm"/>&ndash;&gt;-->
+
+            <!--&lt;!&ndash;            <p:outputLabel for="allDay" value="All Day:" />-->
+                        <!--<h:selectBooleanCheckbox id="allDay" value="#{vm.event.allDay}" />&ndash;&gt;-->
+
+            <!--&lt;!&ndash;            <p:outputLabel for="amount" value="All Day:" />-->
+                        <!--<p:inputText id="amount" value="#{vm.event.amount}" />&ndash;&gt;-->
+
+
+            <!--<p:outputLabel value="#{vm.event.startDate}">-->
+                <!--<f:convertDateTime locale="el_GR" pattern="EEEEEEEEE dd/MM/yyyy" timeZone="EDT"/>-->
+            <!--</p:outputLabel>-->
+
+            <!--<p:outputLabel for="date" value="Ώρα"/>-->
+            <!--<p:calendar id="date" value="#{vm.event.startDate}" pattern="MM/dd/yyyy HH:mm"/>-->
+
+            <!--<p:outputLabel for="advanced" value="Ραντεβού"/>-->
+            <!--<p:selectOneListbox id="advanced"-->
+                                <!--style="width: 100%"-->
+                                <!--value="#{vm.event.patien}"-->
+                                <!--converter="patienConverter"-->
+                                <!--var="t"-->
+                                <!--filter="true"-->
+                                <!--filterMatchMode="contains">-->
+                <!--<f:selectItems value="#{vm.patiens}"-->
+                               <!--var="patien"-->
+                               <!--itemLabel="#{patien.firstName} #{patien.lastName}"-->
+                               <!--itemValue="#{patien}"/>-->
+                <!--<p:column>-->
+                    <!--<h:outputText value="#{t.lastName}"/>-->
+                    <!--<h:outputText value=" "/>-->
+                    <!--<h:outputText value="#{t.firstName}"/>-->
+                <!--</p:column>-->
+            <!--</p:selectOneListbox>-->
+
+
+            <!--<p:commandButton type="reset" value="Reset"/>-->
+            <!--<p:commandButton id="addButton" value="Save" actionListener="#{vm.addEvent}"-->
+                             <!--oncomplete="PF('myschedule').update();PF('eventDialog').hide();"/>-->
+        <!--</h:panelGrid>-->
+    <!--</p:dialog>-->
+
+
+    <script type="text/javascript">
+        PrimeFaces.locales['el'] = {
+            closeText: 'Κλείσιμο',
+            prevText: 'Προηγούμενο',
+            nextText: 'Επόμενο',
+            monthNames: ['Ιανουάριος', 'Φεβρουάριος', 'Μάρτιος', 'Απρίλιος', 'Μάϊος', 'Ιούνιος', 'Ιούλιος', 'Άυγουστος', 'Σεπτέμβιος', 'Οκτώβριος', 'Νοέμβριος', 'Δεκέμβριος'],
+            monthNamesShort: ['Ιαν', 'Φεβ', 'Μαρ', 'Απρ', 'Μαι', 'Ιουν', 'Ιουλ', 'Αυγ', 'Σεπ', 'Οκτ', 'Νοε', 'Δεκ'],
+            dayNames: ['Κυριακή', 'Δευτέρα', 'Τρίτη', 'Τετάρτη', 'Πέμπτη', 'Παρασκευή', 'Σάββατο'],
+            dayNamesShort: ['Κυρ', 'Δευ', 'Τρι', 'Τετ', 'Πεμ', 'Παρ', 'Σαβ'],
+            dayNamesMin: ['Κ', 'Δ', 'Τρ', 'Τε', 'Πε', 'Πα', 'Σ'],
+            weekHeader: 'Εβδ',
+            firstDay: 1,
+            isRTL: false,
+            showMonthAfterYear: false,
+            yearSuffix: '',
+            timeOnlyTitle: 'Επιλογή Ώρας',
+            timeText: 'Χρόνος',
+            hourText: 'Ώρα',
+            minuteText: 'Λεπτό',
+            secondText: 'Δεύτερολεπτο',
+            currentText: 'Σήμερα',
+            ampm: false,
+            month: 'Μήνας',
+            week: 'Εβδομάδα',
+            day: 'Μέρα',
+            allDayText: 'Όλη Μέρα'
+
+        };
+    </script>
+</ui:composition>

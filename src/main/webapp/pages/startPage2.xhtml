@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>PrimeFaces</title>
+            </f:facet>
+        </h:head>
+
+        <h:body>
+
+            <p:layout fullPage="true">
+
+
+                <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
+                    Header
+                </p:layoutUnit>
+
+                <p:layoutUnit position="south" size="100" closable="true" collapsible="true">
+                    Footer
+                </p:layoutUnit>
+
+                <p:layoutUnit position="west">
+                    <h:form>  
+                        <p:menu>
+                            <p:submenu label="Μενού">
+                                <p:menuitem value="Demo" action="#{vm.changeCenterPanel(1)}"/>
+                                <p:menuitem value="selida_" action="#{vm.changeCenterPanel(2)}"  />
+                                <p:menuitem value="Forum" url="http://forum.primefaces.org/" />
+                                <p:menuitem value="Themes" url="http://www.primefaces.org/themes.html" />
+
+                            </p:submenu>
+
+                        </p:menu>
+                    </h:form>
+                </p:layoutUnit>
+
+                <p:layoutUnit  position="center">
+                    <h:form id="go">                        
+                        <ui:include src="#{vm.centerPanel}" />
+                    </h:form>
+                </p:layoutUnit>
+
+            </p:layout>
+
+            <!--            ΠΛΗΡΟΦΟΡΙΕΣ ΠΕΛΑΤΗ-->
+            <p:dialog id="dialog" header="Πληροφορίες πελάτη" widgetVar="editPatienDialog" modal="true" width="530" height="250" >  
+                <h:form> 
+                    <h:panelGrid columns="2" columnClasses="column" cellpadding="5">
+
+                        <h:outputLabel for="name" value="Όνομα:" />
+                        <p:inplace id="name" editor="true" >
+                            <p:ajax event="save" listener="#{vm.handleSave}" update=":go:patiens" />
+                            <p:inputText value="#{vm.selectedPatien.firstName}" required="true" label="text" />
+                        </p:inplace>
+
+                        <h:outputLabel for="surname" value="Επώνυμο:" />
+                        <p:inplace id="surname" editor="true">
+                            <p:ajax event="save" listener="#{vm.handleSave}" update=":go:patiens" />
+                            <p:inputText value="#{vm.selectedPatien.lastName}" required="true" label="text" />
+                        </p:inplace>
+
+                        <h:outputLabel for="birthday" value="Ημ/νία γέννησης" />
+                        <p:inplace id="birthday" editor="true">
+                            <p:ajax event="save" listener="#{vm.handleSave}" update=":go:patiens" />
+                            <p:calendar  value="#{vm.selectedPatien.birthday}" pattern="dd-MM-yyyy" mask="true" >
+                                <f:convertDateTime pattern="dd-MM-yyyy" />
+                            </p:calendar>
+                        </p:inplace>
+
+                        <h:outputLabel for="city" value="Πόλη:" />
+                        <p:inplace id="city" editor="true">
+                            <p:ajax event="save" listener="#{vm.handleSave}" update=":go:patiens" />
+                            <p:inputText value="#{vm.selectedPatien.city}" required="true" label="text" />
+                        </p:inplace>
+
+                        <h:outputLabel for="street" value="Οδός:" />
+                        <p:inplace id="street" editor="true">
+                            <p:ajax event="save" listener="#{vm.handleSave}" update=":go:patiens" />
+                            <p:inputText value="#{vm.selectedPatien.street}" required="true" label="text" />
+                        </p:inplace>
+
+                        <h:outputLabel for="tk" value="Τ.Κ.:" />
+                        <p:inplace id="tk" editor="true">
+                            <p:ajax event="save" listener="#{vm.handleSave}" update=":go:patiens" />
+                            <p:inputText value="#{vm.selectedPatien.tk}" required="true" label="text" />
+                        </p:inplace>
+                    </h:panelGrid>
+                </h:form>
+            </p:dialog>
+            <!--            ΠΡΟΣΘΗΚΗ ΠΕΛΑΤΗ-->
+            <p:dialog id="addPatienDialog" header="Προσθήκη πελάτη" widgetVar="addPatienDialog" modal="true" width="530" height="300" >  
+                <h:form id="addPatienForm"> 
+                    <p:growl/>
+                    <h:panelGrid columns="2" columnClasses="column" cellpadding="5">
+
+                        <h:outputLabel  value="Όνομα:" />
+                        <p:inputText value="#{vm.newPatien.firstName}" label="text" />
+
+
+                        <h:outputLabel  value="Επώνυμο:" />
+                        <p:inputText value="#{vm.newPatien.lastName}" label="text" />
+
+                        <h:outputLabel  value="Ημ/νία γέννησης" />
+                        <p:calendar  value="#{vm.newPatien.birthday}" pattern="dd-MM-yyyy" mask="true" >
+                            <f:convertDateTime pattern="dd-MM-yyyy" />
+                        </p:calendar>
+
+                        <h:outputLabel value="Πόλη:" />
+                        <p:inputText value="#{vm.newPatien.city}" label="text" />
+
+                        <h:outputLabel  value="Οδός:" />
+                        <p:inputText value="#{vm.newPatien.street}" label="text" />
+
+                        <h:outputLabel  value="Τ.Κ.:" />
+                        <p:inputText value="#{vm.newPatien.tk}" label="text" />
+                    </h:panelGrid>
+
+
+                    <p:commandButton value="Αποθήκευση" 
+                                     actionListener="#{vm.addPatien}" 
+                                     update=":addPatienForm :go:patiens"
+                                     validateClient="true" 
+                                     styleClass="ui-priority-primary"
+                                     />
+                    <p:commandButton value="Ακύρωση"  oncomplete="PF('addPatienDialog').hide()"  styleClass="ui-priority-primary" />
+                </h:form>
+            </p:dialog>
+            
+            <ui:include src="/pages/visits.xhtml" />
+           
+
+        </h:body>
+
+    </f:view>
+</html>
+

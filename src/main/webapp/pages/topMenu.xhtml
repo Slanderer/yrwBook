@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+
+<h:body>
+ <!--   <h:panelGroup id="pendingBtn" title="#{labels['common.notifications']}" styleClass="button">
+        <h:panelGroup styleClass="fa fa-bell-o"/>
+
+        <h:outputText value="#{notificationBean.pendingNotifications.size()}"
+                      rendered="#{not empty notificationBean.pendingNotifications}" styleClass="indicator high"/>
+    </h:panelGroup>
+
+    <p:overlayPanel for="pendingBtn" showEffect="fade" hideEffect="fade"
+                    rendered="#{not empty notificationBean.pendingNotifications}">
+        <h:panelGroup id="pendingNotifications">
+            <ui:repeat value="#{notificationBean.pendingNotifications}" var="msg">
+                <div class="notificationRow">
+                    <p:outputLabel value="#{msg.message}"/>
+                    <p:commandLink action="#{notificationBean.updateUserNotifications(msg)}"
+                                   update=":topMenuForm:pendingNotifications :topMenuForm:pendingBtn">
+                        <span class="fa fa-check"/>
+                    </p:commandLink>
+                </div>
+            </ui:repeat>
+        </h:panelGroup>
+    </p:overlayPanel>
+
+    <h:panelGroup id="messageBtn" title="#{labels['common.notifications']}" styleClass="button">
+        <h:panelGroup styleClass="fa fa-envelope-o"/>
+        <h:outputText value="#{notificationBean.msgNotifications.size()}"
+                      rendered="#{not empty notificationBean.msgNotifications}" styleClass="indicator low"/>
+    </h:panelGroup>
+
+    <p:overlayPanel for="messageBtn" showEffect="fade" hideEffect="fade"
+                    rendered="#{not empty notificationBean.msgNotifications}">
+        <h:panelGroup id="msgNotifications">
+            <ui:repeat value="#{notificationBean.msgNotifications}" var="msg">
+                <div class="notificationRow">
+                    <p:outputLabel value="#{msg.message}"/>
+                    <p:commandLink action="#{notificationBean.updateUserNotifications(msg)}"
+                                   update=":topMenuForm:msgNotifications :topMenuForm:messageBtn">
+                        <span class="fa fa-check"/>
+                    </p:commandLink>
+                </div>
+            </ui:repeat>
+        </h:panelGroup>
+    </p:overlayPanel>
+
+
+    <p:commandLink title="#{labels['common.settings']}"><span class="fa fa-gear"></span></p:commandLink>-->
+
+    <!--<p:commandLink title="#{labels['common.logout']}" action="#{loginBean.logout}" ajax="false"><span
+            class="fa fa-power-off"/></p:commandLink>-->
+</h:body>
+</html>

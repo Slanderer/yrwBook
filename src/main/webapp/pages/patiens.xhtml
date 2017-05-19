@@ -1,0 +1,126 @@
+<ui:composition template="/pages/mainTemplate.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+
+        <!--PATIEN TABLE-->
+        <p:dataTable id="patiens" var="patien" value="#{patienBean.patiens}" selectionMode="single"
+                     selection="#{patienBean.selectedPatien}" rowKey="#{patien.id}" sortBy="#{patien.lastName}">
+            <p:ajax event="rowSelect"/>
+
+            <p:column headerText="Id" sortBy="#{patien.id}" filterBy="#{patien.id}" filterMatchMode="contains">
+                <h:outputText value="#{patien.id}"/>
+            </p:column>
+            <p:column headerText="Επώνυμο" sortBy="#{patien.lastName}" filterBy="#{patien.lastName}"
+                      filterMatchMode="contains">
+                <h:outputText value="#{patien.lastName}"/>
+            </p:column>
+            <p:column headerText="Όνομα" sortBy="#{patien.firstName}" filterBy="#{patien.firstName}"
+                      filterMatchMode="contains">
+                <h:outputText value="#{patien.firstName}"/>
+            </p:column>
+            <p:column headerText="Ημ/νία γέννησης" sortBy="#{patien.birthday}" filterBy="#{patien.birthday}"
+                      filterMatchMode="contains">
+                <h:outputText value="#{patien.birthday}">
+                    <f:convertDateTime pattern="dd-MM-yyyy"/>
+                </h:outputText>
+            </p:column>
+            <p:column headerText="Πόλη" sortBy="#{patien.city}" filterBy="#{patien.city}" filterMatchMode="contains">
+                <h:outputText value="#{patien.city}"/>
+            </p:column>
+            <p:column headerText="Οδός" sortBy="#{patien.street}" filterBy="#{patien.street}"
+                      filterMatchMode="contains">
+                <h:outputText value="#{patien.street}"/>
+            </p:column>
+            <p:column headerText="Τ.Κ." sortBy="#{patien.tk}" filterBy="#{patien.tk}" filterMatchMode="contains">
+                <h:outputText value="#{patien.tk}"/>
+            </p:column>
+
+
+            <p:column style="width: 90px">
+                <f:facet name="header">
+                    <p:commandLink action="#{patienBean.newPatien}"
+                                   update=":addPatienForm"
+                                   oncomplete="PF('addPatienDialog').show()"
+                                   title="Προσθήκη πελάτη">
+                        <span class="fa fa-plus"></span>
+                    </p:commandLink>
+                </f:facet>
+
+                <p:commandLink update=":addPatienForm"
+                               oncomplete="PF('addPatienDialog').show()">
+                    <span class="fa fa-pencil"></span>
+                    <f:setPropertyActionListener value="#{patien}" target="#{patienBean.selectedPatien}"/>
+                </p:commandLink>
+
+                <p:commandLink action="#{patienBean.deletePatien}"
+                               update=":mainForm">
+                    <span class="fa fa-trash"></span>
+                    <f:setPropertyActionListener value="#{patien}" target="#{patienBean.selectedPatien}"/>
+                    <p:confirm header="Επικύρωση διαγραφής" message="Σίγουρα να γίνει η διαγραφή" icon="ui-icon-alert"/>
+                </p:commandLink>
+
+                <p:link outcome="patienCard"   >
+                    <f:param name="patienID" value="#{patien.id}" />
+                    <span class="fa fa-book"></span>
+                </p:link>
+
+            </p:column>
+
+
+        </p:dataTable>
+    </ui:define>
+
+
+    <ui:define name="dialogs">
+
+        <!--            ΠΡΟΣΘΗΚΗ ΠΕΛΑΤΗ-->
+        <p:dialog id="addPatienDialog" header="Προσθήκη πελάτη" widgetVar="addPatienDialog" modal="true" width="530"
+                  height="300">
+            <h:form id="addPatienForm">
+
+                <h:panelGrid columns="2" columnClasses="column" cellpadding="5">
+
+                    <h:outputLabel value="Όνομα:"/>
+                    <p:inputText value="#{patienBean.selectedPatien.firstName}" label="text"/>
+
+
+                    <h:outputLabel value="Επώνυμο:"/>
+                    <p:inputText value="#{patienBean.selectedPatien.lastName}" label="text"/>
+
+                    <h:outputLabel value="Ημ/νία γέννησης"/>
+                    <p:calendar value="#{patienBean.selectedPatien.birthday}" pattern="dd-MM-yyyy" mask="true">
+                        <f:convertDateTime pattern="dd-MM-yyyy"/>
+                    </p:calendar>
+
+                    <h:outputLabel value="Πόλη:"/>
+                    <p:inputText value="#{patienBean.selectedPatien.city}" label="text"/>
+
+                    <h:outputLabel value="Οδός:"/>
+                    <p:inputText value="#{patienBean.selectedPatien.street}" label="text"/>
+
+                    <h:outputLabel value="Τ.Κ.:"/>
+                    <p:inputText value="#{patienBean.selectedPatien.tk}" label="text"/>
+                </h:panelGrid>
+
+
+                <p:commandButton value="Αποθήκευση"
+                                 action="#{patienBean.persistPatien}"
+                                 update=":mainForm"
+                                 validateClient="true"
+                                 styleClass="ui-priority-primary"
+                                 oncomplete="PF('addPatienDialog').hide()"
+                />
+                <p:commandButton value="Ακύρωση" oncomplete="PF('addPatienDialog').hide()"
+                                 styleClass="ui-priority-primary"/>
+            </h:form>
+        </p:dialog>
+
+
+    </ui:define>
+
+</ui:composition>
