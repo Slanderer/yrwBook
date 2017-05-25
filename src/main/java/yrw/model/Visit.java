@@ -1,5 +1,6 @@
 package yrw.model;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
 import org.primefaces.model.DefaultScheduleEvent;
 
 import javax.persistence.*;
@@ -28,6 +29,7 @@ public class Visit extends AbstractEntity implements Serializable {
     private double amount;
 
     @ManyToOne
+    @JsonBackReference
     private Patien patien;
 
     public Visit() {

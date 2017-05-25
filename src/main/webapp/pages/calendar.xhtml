@@ -5,100 +5,99 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui">
     <ui:define name="content">
-        <p:schedule id="scheduleLocale" value="#{vm.eventModel}" widgetVar="myschedule" locale="el" timeZone="GMT+2">
+        <h:outputScript library="js" name="my.js"/>
+        <p:schedule id="schedule" value="#{scheduleBean.eventModel}" widgetVar="myschedule" locale="el"
+                    ignoreTimezone="false">
 
-            <p:ajax event="dateSelect" listener="#{vm.onDateSelect}"
-
+            <p:ajax event="dateSelect" listener="#{scheduleBean.onDateSelect}" update="eventDetails"
                     oncomplete="PF('eventDialog').show();"/>
-            <p:ajax event="eventSelect" listener="#{vm.onEventSelect}"
-
+            <p:ajax event="eventSelect" listener="#{scheduleBean.onEventSelect}" update="eventDetails"
                     oncomplete="PF('eventDialog').show();"/>
-            <p:ajax event="eventMove" listener="#{vm.onEventMove}"/>
-            <p:ajax event="eventResize" listener="#{vm.onEventResize}"/>
+            <p:ajax event="eventMove" listener="#{scheduleBean.onEventMove}"/>
 
         </p:schedule>
 
+        <script type="text/javascript">
+            PrimeFaces.locales['el'] = {
+                closeText: 'Κλείσιμο',
+                prevText: 'Προηγούμενο',
+                nextText: 'Επόμενο',
+                monthNames: ['Ιανουάριος', 'Φεβρουάριος', 'Μάρτιος', 'Απρίλιος', 'Μάϊος', 'Ιούνιος', 'Ιούλιος', 'Άυγουστος', 'Σεπτέμβιος', 'Οκτώβριος', 'Νοέμβριος', 'Δεκέμβριος'],
+                monthNamesShort: ['Ιαν', 'Φεβ', 'Μαρ', 'Απρ', 'Μαι', 'Ιουν', 'Ιουλ', 'Αυγ', 'Σεπ', 'Οκτ', 'Νοε', 'Δεκ'],
+                dayNames: ['Κυριακή', 'Δευτέρα', 'Τρίτη', 'Τετάρτη', 'Πέμπτη', 'Παρασκευή', 'Σάββατο'],
+                dayNamesShort: ['Κυρ', 'Δευ', 'Τρι', 'Τετ', 'Πεμ', 'Παρ', 'Σαβ'],
+                dayNamesMin: ['Κ', 'Δ', 'Τρ', 'Τε', 'Πε', 'Πα', 'Σ'],
+                weekHeader: 'Εβδ',
+                firstDay: 1,
+                isRTL: false,
+                showMonthAfterYear: false,
+                yearSuffix: '',
+                timeOnlyTitle: 'Επιλογή Ώρας',
+                timeText: 'Χρόνος',
+                hourText: 'Ώρα',
+                minuteText: 'Λεπτό',
+                secondText: 'Δεύτερολεπτο',
+                currentText: 'Σήμερα',
+                ampm: false,
+                month: 'Μήνας',
+                week: 'Εβδομάδα',
+                day: 'Μέρα',
+                allDayText: 'Όλη Μέρα'
+            };
+
+        </script>
     </ui:define>
 
-    <!--<p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip">-->
-        <!--<h:panelGrid id="eventDetails" columns="2">-->
-            <!--&lt;!&ndash;            <p:outputLabel for="title" value="Titles:" />-->
-                        <!--<p:inputText id="title" value="#{vm.event.patien.lastName}" />&ndash;&gt;-->
+    <ui:define name="dialogs">
+        <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip">
+            <h:form id="eventDetails">
 
-            <!--&lt;!&ndash;        <p:outputLabel for="from" value="From:" />&ndash;&gt;-->
-            <!--&lt;!&ndash;            <p:calendar id="from" value="#{vm.event.date}" timeZone="GMT+2" pattern="dd/MM/yyyy HH:mm"/>&ndash;&gt;-->
+                <h:panelGrid rendered="#{scheduleBean.event.id ne null}">
+                    <p:outputLabel value="#{scheduleBean.event.data.patien.lastName} #{scheduleBean.event.data.patien.firstName}"/>
+                    <p:outputLabel for="from" value="Ώρα:"/>
+                    <p:calendar id="from" value="#{scheduleBean.event.startDate}"
+                                pattern="dd/MM/yyyy HH:mm"/>
+                </h:panelGrid>
+                <!--//ΝΕΟ-->
 
-            <!--&lt;!&ndash;            <p:outputLabel for="to" value="To:" -->
-                        <!--<p:calendar id="to" value="#{vm.event.endDate}" timeZone="GMT+2" pattern="dd/MM/yyyy HH:mm"/>&ndash;&gt;-->
+                <h:panelGrid rendered="#{scheduleBean.event.id eq null}">
+                    <p:outputLabel value="Πελάτης: "/>
+                    <p:selectOneMenu value="#{scheduleBean.event.data.patien}" converter="jsonEntityConverter">
+                        <f:selectItem itemLabel="Επιλογή" itemValue=""/>
+                        <f:selectItems value="#{scheduleBean.patiens}" var="patien" itemValue="#{patien}"
+                                       itemLabel="#{patien.lastName}"/>
+                    </p:selectOneMenu>
 
-            <!--&lt;!&ndash;            <p:outputLabel for="allDay" value="All Day:" />-->
-                        <!--<h:selectBooleanCheckbox id="allDay" value="#{vm.event.allDay}" />&ndash;&gt;-->
+                    <p:outputLabel for="from2" value="Ώρα:"/>
+                    <p:calendar id="from2" value="#{scheduleBean.event.startDate}"
+                                pattern="dd/MM/yyyy HH:mm"/>
+                </h:panelGrid>
 
-            <!--&lt;!&ndash;            <p:outputLabel for="amount" value="All Day:" />-->
-                        <!--<p:inputText id="amount" value="#{vm.event.amount}" />&ndash;&gt;-->
+                <div>
+                    <p:commandButton value="17" action="#{scheduleBean.setTime(scheduleBean.event.data,'hh',17)}"
+                                     update="eventDetails"/>
+                    <p:commandButton value="18" action="#{scheduleBean.setTime(scheduleBean.event.data,'hh',18)}"
+                                     update="eventDetails"/>
+                    <p:commandButton value="19" action="#{scheduleBean.setTime(scheduleBean.event.data,'hh',19)}"
+                                     update="eventDetails"/>
+                    <p:commandButton value="20" action="#{scheduleBean.setTime(scheduleBean.event.data,'hh',20)}"
+                                     update="eventDetails"/>
+                </div>
+                <div>
+                    <p:commandButton value="00" action="#{scheduleBean.setTime(scheduleBean.event.data,'mm',0)}"
+                                     update="eventDetails"/>
+                    <p:commandButton value="15" action="#{scheduleBean.setTime(scheduleBean.event.data,'mm',15)}"
+                                     update="eventDetails"/>
+                    <p:commandButton value="30" action="#{scheduleBean.setTime(scheduleBean.event.data,'mm',30)}"
+                                     update="eventDetails"/>
+                    <p:commandButton value="45" action="#{scheduleBean.setTime(scheduleBean.event.data,'mm',45)}"
+                                     update="eventDetails"/>
+                </div>
+                <p:commandButton type="reset" value="Reset"/>
+                <p:commandButton id="addButton" value="Save" actionListener="#{scheduleBean.addEvent}"
+                                 oncomplete="PF('myschedule').update();PF('eventDialog').hide();"/>
 
-
-            <!--<p:outputLabel value="#{vm.event.startDate}">-->
-                <!--<f:convertDateTime locale="el_GR" pattern="EEEEEEEEE dd/MM/yyyy" timeZone="EDT"/>-->
-            <!--</p:outputLabel>-->
-
-            <!--<p:outputLabel for="date" value="Ώρα"/>-->
-            <!--<p:calendar id="date" value="#{vm.event.startDate}" pattern="MM/dd/yyyy HH:mm"/>-->
-
-            <!--<p:outputLabel for="advanced" value="Ραντεβού"/>-->
-            <!--<p:selectOneListbox id="advanced"-->
-                                <!--style="width: 100%"-->
-                                <!--value="#{vm.event.patien}"-->
-                                <!--converter="patienConverter"-->
-                                <!--var="t"-->
-                                <!--filter="true"-->
-                                <!--filterMatchMode="contains">-->
-                <!--<f:selectItems value="#{vm.patiens}"-->
-                               <!--var="patien"-->
-                               <!--itemLabel="#{patien.firstName} #{patien.lastName}"-->
-                               <!--itemValue="#{patien}"/>-->
-                <!--<p:column>-->
-                    <!--<h:outputText value="#{t.lastName}"/>-->
-                    <!--<h:outputText value=" "/>-->
-                    <!--<h:outputText value="#{t.firstName}"/>-->
-                <!--</p:column>-->
-            <!--</p:selectOneListbox>-->
-
-
-            <!--<p:commandButton type="reset" value="Reset"/>-->
-            <!--<p:commandButton id="addButton" value="Save" actionListener="#{vm.addEvent}"-->
-                             <!--oncomplete="PF('myschedule').update();PF('eventDialog').hide();"/>-->
-        <!--</h:panelGrid>-->
-    <!--</p:dialog>-->
-
-
-    <script type="text/javascript">
-        PrimeFaces.locales['el'] = {
-            closeText: 'Κλείσιμο',
-            prevText: 'Προηγούμενο',
-            nextText: 'Επόμενο',
-            monthNames: ['Ιανουάριος', 'Φεβρουάριος', 'Μάρτιος', 'Απρίλιος', 'Μάϊος', 'Ιούνιος', 'Ιούλιος', 'Άυγουστος', 'Σεπτέμβιος', 'Οκτώβριος', 'Νοέμβριος', 'Δεκέμβριος'],
-            monthNamesShort: ['Ιαν', 'Φεβ', 'Μαρ', 'Απρ', 'Μαι', 'Ιουν', 'Ιουλ', 'Αυγ', 'Σεπ', 'Οκτ', 'Νοε', 'Δεκ'],
-            dayNames: ['Κυριακή', 'Δευτέρα', 'Τρίτη', 'Τετάρτη', 'Πέμπτη', 'Παρασκευή', 'Σάββατο'],
-            dayNamesShort: ['Κυρ', 'Δευ', 'Τρι', 'Τετ', 'Πεμ', 'Παρ', 'Σαβ'],
-            dayNamesMin: ['Κ', 'Δ', 'Τρ', 'Τε', 'Πε', 'Πα', 'Σ'],
-            weekHeader: 'Εβδ',
-            firstDay: 1,
-            isRTL: false,
-            showMonthAfterYear: false,
-            yearSuffix: '',
-            timeOnlyTitle: 'Επιλογή Ώρας',
-            timeText: 'Χρόνος',
-            hourText: 'Ώρα',
-            minuteText: 'Λεπτό',
-            secondText: 'Δεύτερολεπτο',
-            currentText: 'Σήμερα',
-            ampm: false,
-            month: 'Μήνας',
-            week: 'Εβδομάδα',
-            day: 'Μέρα',
-            allDayText: 'Όλη Μέρα'
-
-        };
-    </script>
+            </h:form>
+        </p:dialog>
+    </ui:define>
 </ui:composition>

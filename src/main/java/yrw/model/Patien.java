@@ -1,5 +1,7 @@
 package yrw.model;
 
+import org.codehaus.jackson.annotate.JsonManagedReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -30,6 +32,7 @@ public class Patien extends AbstractEntity implements Serializable {
     private int tk;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "patien")
+    @JsonManagedReference
     private List<Visit> visits = new ArrayList<>();
 
     public Patien() {
