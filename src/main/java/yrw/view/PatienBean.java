@@ -1,12 +1,15 @@
 package yrw.view;
 
 
+import org.primefaces.event.FileUploadEvent;
 import yrw.ejb.ActionsEjb;
+import yrw.model.Document;
 import yrw.model.Patien;
 import yrw.model.Visit;
 import yrw.model.VisitCause;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.inject.Inject;
 
 import javax.faces.view.ViewScoped;
@@ -64,7 +67,6 @@ public class PatienBean implements Serializable {
         }
     }
 
-
     public void newVisit() {
         selectedVisit = new Visit();
         selectedVisit.setPatien(selectedPatien);
@@ -85,6 +87,18 @@ public class PatienBean implements Serializable {
             actionsEjb.updateEntity(selectedVisit);
             selectedPatien.getVisits().remove(selectedPatien);
         }
+    }
+
+    public void handleFileUpload(FileUploadEvent event) {
+        Document document= new Document();
+        document.setPatien(selectedPatien);
+        document.setFiledata(event.getFile().getContents());
+        document.setContentType(event.getFile().getContentType());
+        document.setFileName(event.getFile().getFileName());
+
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,"Succesful", event.getFile().getFileName() + " is uploaded.");
+        FacesContext.getCurrentInstance().addMessage(null, message);
+        actionsEjb.createEntity(document);
     }
 
 

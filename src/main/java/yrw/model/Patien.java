@@ -9,10 +9,10 @@ import java.util.Date;
 import java.util.List;
 
 @NamedQueries({
-    @NamedQuery(
-            name = "fetchAllPatiens",
-            query = "select p from Patien p"
-    )})
+        @NamedQuery(
+                name = "fetchAllPatiens",
+                query = "select p from Patien p"
+        )})
 @NamedQuery(
         name = "getPatienWithId",
         query = "select p from Patien p where p.id = :id"
@@ -23,20 +23,28 @@ import java.util.List;
 public class Patien extends AbstractEntity implements Serializable {
 
     private boolean deleted;
+
     private String firstName;
+
     private String lastName;
+
     @Temporal(TemporalType.TIMESTAMP)
     private Date birthday;
+
     private String city;
+
     private String street;
+
     private int tk;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "patien")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "patien")
     @JsonManagedReference
     private List<Visit> visits = new ArrayList<>();
 
-    public Patien() {
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "patien")
+    private List<Document> documents;
 
+    public Patien() {
         this.deleted = false;
 
     }
@@ -105,4 +113,11 @@ public class Patien extends AbstractEntity implements Serializable {
         this.visits = visits;
     }
 
+    public List<Document> getDocuments() {
+        return documents;
+    }
+
+    public void setDocuments(List<Document> documents) {
+        this.documents = documents;
+    }
 }

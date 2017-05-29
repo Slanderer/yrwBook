@@ -58,6 +58,10 @@
                 </p:commandLink>
             </p:column>
         </p:dataTable>
+
+        <p:fileUpload fileUploadListener="#{patienBean.handleFileUpload}" mode="advanced" dragDropSupport="false"
+                     sizeLimit="100000" fileLimit="3" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+
     </ui:define>
 
     <ui:define name="dialogs">
@@ -66,10 +70,6 @@
             <h:form id="addVisitForm">
                 <h:panelGrid columns="2" columnClasses="column" cellpadding="5">
 
-                    <h:outputLabel value="Ημ/νία επίσκεψης"/>
-                    <p:calendar value="#{patienBean.selectedVisit.date}" pattern="dd-MM-yyyy" mask="true">
-                        <f:convertDateTime pattern="dd-MM-yyyy"/>
-                    </p:calendar>
 
                     <h:outputLabel value="Λόγος επίσκεψης"/>
                     <p:selectOneMenu value="#{patienBean.selectedVisit.cause}" converter="jsonEntityConverter">
@@ -77,6 +77,13 @@
                         <f:selectItems value="#{applicationBean.visitCauses}" var="cause" itemValue="#{cause}"
                                        itemLabel="#{cause.description}"/>
                     </p:selectOneMenu>
+
+                    <h:outputLabel value="Ημ/νία επίσκεψης"/>
+                    <p:calendar value="#{patienBean.selectedVisit.date}" pattern="dd-MM-yyyy HH:mm" mask="true">
+                        <f:convertDateTime pattern="dd-MM-yyyy HH:mm"/>
+                    </p:calendar>
+
+
 
                     <h:outputLabel value="Ποσό"/>
                     <p:inputText value="#{patienBean.selectedVisit.amount}" label="text"/>
